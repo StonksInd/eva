@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aide - Test audio/micro</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    <section
+      class="min-h-screen flex flex-col justify-center items-center px-4 py-10 text-center"
+    >
+      <h1 class="text-3xl sm:text-5xl font-bold mb-6">
+        Aide & Vérification des autorisations
+      </h1>
+
+      <p class="text-lg text-gray-600 mb-4 max-w-2xl">
+        Vérifiez que l'application a bien accès à votre
+        <strong>microphone</strong> et vos <strong>enceintes</strong>.
+      </p>
+
+      <!-- Test Micro -->
+      <button
+        id="testMic"
+        class="mt-6 mb-2 px-6 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 flex items-center gap-2"
+      >
+        <i data-lucide="mic"></i> Tester le micro
+      </button>
+      <div id="micStatus" class="text-sm text-gray-500 mb-6"></div>
+
+      <!-- Test Enceintes -->
+      <button
+        id="testSound"
+        class="mb-2 px-6 py-3 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 flex items-center gap-2"
+      >
+        <i data-lucide="volume-2"></i> Tester les enceintes
+      </button>
+
+      <div id="audioStatus" class="text-sm text-gray-500 mb-10"></div>
+
+      <!-- Tutos selon navigateur -->
+      <h2 class="text-xl font-semibold mb-4">
+        Tutoriel pour activer le micro :
+      </h2>
+      <div
+        id="browserHelp"
+        class="text-left bg-white p-6 rounded-xl shadow max-w-xl text-gray-700 space-y-3"
+      >
+        <p>Chargement du tutoriel en fonction de votre navigateur...</p>
+      </div>
+    </section>
+
+    <!-- Script pour les fonctionnalités -->
+    <script>
+      lucide.createIcons();
+
+      const micBtn = document.getElementById("testMic");
+      const micStatus = document.getElementById("micStatus");
+      micBtn.addEventListener("click", async () => {
+        micStatus.textContent = "Test du micro en cours...";
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          micStatus.textContent = "✅ Micro détecté et autorisé !";
+          stream.getTracks().forEach((track) => track.stop());
+        } catch (err) {
+          micStatus.textContent = "❌ Micro non autorisé ou non détecté.";
+        }
+      });
+
+      const soundBtn = document.getElementById("testSound");
+      const audioStatus = document.getElementById("audioStatus");
+      soundBtn.addEventListener("click", () => {
+        const audio = new Audio(
+          "https://www.soundjay.com/button/sounds/button-3.mp3"
+        );
+        audio
+          .play()
+          .then(() => {
+            audioStatus.textContent = "🔊 Son joué avec succès.";
+          })
+          .catch(() => {
+            audioStatus.textContent = "❌ Impossible de jouer un son.";
+          });
+      });
+
+      // Détection navigateur & tutoriel
+      const helpBox = document.getElementById("browserHelp");
+      const ua = navigator.userAgent;
+
+      let tuto = "";
+      if (/Chrome/.test(ua)) {
+        tuto = `
+        <strong>Google Chrome :</strong>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>Cliquez sur l'icône du cadenas 🔒 à gauche de l'URL.</li>
+          <li>Autorisez le microphone dans les paramètres du site.</li>
+          <li>Rechargez la page si nécessaire.</li>
+        </ul>
+      `;
+      } else if (/Firefox/.test(ua)) {
+        tuto = `
+        <strong>Mozilla Firefox :</strong>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>Une icône de micro apparaît dans la barre d’adresse.</li>
+          <li>Cliquez dessus et autorisez l’accès au micro.</li>
+          <li>Vérifiez vos paramètres de confidentialité si besoin.</li>
+        </ul>
+      `;
+      } else if (/Safari/.test(ua)) {
+        tuto = `
+        <strong>Safari (Mac) :</strong>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>Allez dans les Préférences Safari &gt; Sites web &gt; Microphone.</li>
+          <li>Autorisez le micro pour ce site.</li>
+        </ul>
+      `;
+      } else if (/Edg/.test(ua)) {
+        tuto = `
+        <strong>Microsoft Edge :</strong>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>Cliquez sur l’icône de cadenas dans la barre d’URL.</li>
+          <li>Gérez les autorisations et activez le micro.</li>
+        </ul>
+      `;
+      } else {
+        tuto = `<p>Votre navigateur n’est pas reconnu. Veuillez vérifier les paramètres de permissions pour ce site.</p>`;
+      }
+
+      helpBox.innerHTML = tuto;
+    </script>
+  </body>
+</html>

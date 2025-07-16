@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentification</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    <section
+      class="min-h-screen flex flex-col justify-center items-center px-4 py-10"
+    >
+      <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8 space-y-6">
+        <h1 class="text-3xl font-bold text-center mb-4">
+          Informations personnelles
+        </h1>
+
+        <!-- Formulaire -->
+        <form id="authForm" class="space-y-5">
+          <!-- Département -->
+          <div>
+            <label class="block text-sm font-medium mb-1" for="departement"
+              >Département</label
+            >
+            <input
+              type="text"
+              id="departement"
+              name="departement"
+              placeholder="ex: 75"
+              class="w-full border border-gray-300 rounded-xl p-3 focus:ring focus:ring-blue-200"
+            />
+          </div>
+
+          <!-- Âge -->
+          <div>
+            <label class="block text-sm font-medium mb-1" for="age">Âge</label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              min="0"
+              max="120"
+              class="w-full border border-gray-300 rounded-xl p-3 focus:ring focus:ring-blue-200"
+            />
+          </div>
+
+          <!-- Sexe -->
+          <div>
+            <label class="block text-sm font-medium mb-1" for="sexe"
+              >Sexe</label
+            >
+            <select
+              id="sexe"
+              name="sexe"
+              class="w-full border border-gray-300 rounded-xl p-3"
+            >
+              <option value="">Sélectionnez</option>
+              <option value="Femme">Femme</option>
+              <option value="Homme">Homme</option>
+            </select>
+          </div>
+
+          <!-- Cases à cocher -->
+          <div class="space-y-3 text-sm text-gray-700">
+            <label class="flex items-start gap-2">
+              <input type="checkbox" id="check1" class="mt-1" />
+              Je confirme que mes données ci-dessus sont exactes.
+            </label>
+            <label class="flex items-start gap-2">
+              <input type="checkbox" id="check2" class="mt-1" />
+              Je confirme avoir lu et compris les consignes.
+            </label>
+            <label class="flex items-start gap-2">
+              <input type="checkbox" id="check3" class="mt-1" />
+              J'accepte les
+              <a
+                href="/conditions.html"
+                class="underline text-blue-600 hover:text-blue-800"
+                >conditions d'utilisation</a
+              >.
+            </label>
+          </div>
+
+          <!-- Bouton Commencer -->
+          <button
+            type="submit"
+            id="startBtn"
+            disabled
+            class="w-full mt-6 px-6 py-3 bg-blue-400 text-white font-semibold rounded-xl shadow transition disabled:opacity-50 hover:bg-blue-600"
+          >
+            Commencer
+          </button>
+          <script>
+            function checkFormFilled() {
+              const departement = document
+                .getElementById("departement")
+                .value.trim();
+              const age = document.getElementById("age").value.trim();
+              const sexe = document.getElementById("sexe").value;
+              const checkboxes = ["check1", "check2", "check3"].map((id) =>
+                document.getElementById(id)
+              );
+              const allChecked = checkboxes.every((c) => c.checked);
+              return departement && age && sexe && allChecked;
+            }
+
+            const startBtn = document.getElementById("startBtn");
+            const inputs = [
+              document.getElementById("departement"),
+              document.getElementById("age"),
+              document.getElementById("sexe"),
+              ...["check1", "check2", "check3"].map((id) =>
+                document.getElementById(id)
+              ),
+            ];
+
+            function updateButtonStyle() {
+              if (checkFormFilled()) {
+                startBtn.disabled = false;
+                startBtn.classList.remove("bg-blue-400");
+                startBtn.classList.add("bg-blue-700");
+              } else {
+                startBtn.disabled = true;
+                startBtn.classList.remove("bg-blue-700");
+                startBtn.classList.add("bg-blue-400");
+              }
+            }
+
+            inputs.forEach((input) => {
+              input.addEventListener("input", updateButtonStyle);
+              input.addEventListener("change", updateButtonStyle);
+            });
+          </script>
+        </form>
+      </div>
+    </section>
+
+    <!-- Script Lucide & validation -->
+    <script>
+      lucide.createIcons();
+
+      const checkboxes = ["check1", "check2", "check3"].map((id) =>
+        document.getElementById(id)
+      );
+      const startBtn = document.getElementById("startBtn");
+
+      checkboxes.forEach((cb) => {
+        cb.addEventListener("change", () => {
+          const allChecked = checkboxes.every((c) => c.checked);
+          startBtn.disabled = !allChecked;
+        });
+      });
+
+      document
+        .getElementById("authForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Rediriger ou valider les données ici
+          alert("Authentification réussie. Redirection...");
+          // window.location.href = "/suivant.html";
+        });
+    </script>
+  </body>
+</html>

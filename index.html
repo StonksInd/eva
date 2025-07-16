@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page d'accueil</title>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body class="bg-gray-50 text-gray-800 font-sans">
     <!-- Hero Section (simule Heroes UI) -->
@@ -16,17 +13,28 @@
       class="min-h-screen flex flex-col justify-center items-center text-center px-4 py-12"
     >
       <h1 class="text-4xl sm:text-5xl font-bold mb-6">
-        Bienvenue sur notre plateforme
+        Bienvenue sur l'expérience EVA VOCALIS
       </h1>
 
       <p class="max-w-2xl text-lg sm:text-xl text-gray-600 mb-8">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-        odio. Praesent libero. Sed cursus ante dapibus diam.
+        Le but de EVA VOCALIS est de permettre de recolter des données
+        anonymisées sur les interactions vocales des utilisateurs sur des images
+        sélectionnées. Nous utilisons ces données pour améliorer l'expérience
+        utilisateur et pour des recherches en intelligence artificielle.
+        <br />
+        <br />
+        <strong>Les données sont rendues anonymes</strong>
+        <br />
+        Nous demandons une réponse audio à chaque image présentée, il faut
+        qu'elle soit spontanée et non influencé par un tier, et nous vérifions
+        que vous avez bien accès à votre microphone et à vos enceintes avant de
+        commencer l'expérience.
       </p>
 
       <p class="max-w-xl text-md sm:text-lg text-gray-500 mb-10">
-        Notre objectif est de vous offrir une expérience claire, intuitive et
-        adaptée à vos besoins. Découvrez les fonctionnalités dès maintenant.
+        <strong>Important :</strong> Avant de commencer, assurez-vous que vous
+        avez bien accès à votre microphone et à vos enceintes. Vous pouvez
+        vérifier cela dans la section d'aide.
       </p>
 
       <a
