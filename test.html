@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calibration vocale</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    <section class="max-w-2xl mx-auto px-4 py-12 space-y-8">
+      <!-- Texte d'explication -->
+      <div class="text-center">
+        <h1 class="text-3xl font-bold">Calibration de votre voix</h1>
+        <p class="mt-2 text-gray-600 text-lg">
+          Veuillez prononcer les phrases suivantes à voix haute pour calibrer
+          votre micro.
+        </p>
+      </div>
+
+      <!-- Phrases à enregistrer -->
+      <div id="calibrationBlocks" class="space-y-6">
+        <!-- Phrase 1 -->
+        <div class="bg-white rounded-xl shadow p-6 space-y-4" data-block="1">
+          <h2 class="text-lg font-semibold">Phrase 1</h2>
+          <p class="text-gray-600">Bonjour, je participe à cette expérience.</p>
+          <div class="flex items-center gap-3">
+            <button
+              id="recBtn1"
+              class="bg-blue-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-blue-700"
+            >
+              <i data-lucide="mic"></i>
+              <span id="recLabel1">Enregistrer</span>
+            </button>
+            <button id="trash1" class="hidden text-red-600" title="Supprimer">
+              <i data-lucide="trash-2"></i>
+            </button>
+            <span id="status1" class="text-green-600 hidden">✔️ Terminé</span>
+          </div>
+        </div>
+
+        <!-- Phrase 2 -->
+        <div class="bg-white rounded-xl shadow p-6 space-y-4" data-block="2">
+          <h2 class="text-lg font-semibold">Phrase 2</h2>
+          <p class="text-gray-600">Le soleil brille et les oiseaux chantent.</p>
+          <div class="flex items-center gap-3">
+            <button
+              id="recBtn2"
+              class="bg-blue-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-blue-700"
+            >
+              <i data-lucide="mic"></i>
+              <span id="recLabel2">Enregistrer</span>
+            </button>
+            <button id="trash2" class="hidden text-red-600" title="Supprimer">
+              <i data-lucide="trash-2"></i>
+            </button>
+            <span id="status2" class="text-green-600 hidden">✔️ Terminé</span>
+          </div>
+        </div>
+
+        <!-- Phrase 3 -->
+        <div class="bg-white rounded-xl shadow p-6 space-y-4" data-block="3">
+          <h2 class="text-lg font-semibold">Phrase 3</h2>
+          <p class="text-gray-600">Je suis prêt à commencer maintenant.</p>
+          <div class="flex items-center gap-3">
+            <button
+              id="recBtn3"
+              class="bg-blue-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-blue-700"
+            >
+              <i data-lucide="mic"></i>
+              <span id="recLabel3">Enregistrer</span>
+            </button>
+            <button id="trash3" class="hidden text-red-600" title="Supprimer">
+              <i data-lucide="trash-2"></i>
+            </button>
+            <span id="status3" class="text-green-600 hidden">✔️ Terminé</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bouton Terminer -->
+      <div class="text-center pt-6">
+        <button
+          id="finishBtn"
+          class="bg-green-600 text-white px-6 py-3 rounded-xl text-lg shadow hover:bg-green-700 hidden"
+        >
+          ✅ Terminer le calibrage
+        </button>
+      </div>
+    </section>
+
+    <script>
+      lucide.createIcons();
+
+      const completed = {
+        1: false,
+        2: false,
+        3: false,
+      };
+
+      function checkIfAllDone() {
+        const allDone = Object.values(completed).every(Boolean);
+        const finishBtn = document.getElementById("finishBtn");
+        if (allDone) {
+          finishBtn.classList.remove("hidden");
+        } else {
+          finishBtn.classList.add("hidden");
+        }
+      }
+
+      function setupRecording(zone) {
+        let state = 0; // 0 = prêt, 1 = enregistrement, 2 = pause
+        const btn = document.getElementById(`recBtn${zone}`);
+        const label = document.getElementById(`recLabel${zone}`);
+        const trash = document.getElementById(`trash${zone}`);
+        const status = document.getElementById(`status${zone}`);
+
+        btn.addEventListener("click", () => {
+          if (state === 0) {
+            label.innerText = "Pause";
+            btn.classList.replace("bg-blue-600", "bg-yellow-500");
+            trash.classList.remove("hidden");
+            status.classList.add("hidden");
+            state = 1;
+          } else if (state === 1) {
+            label.innerText = "Reprendre";
+            btn.classList.replace("bg-yellow-500", "bg-green-600");
+            state = 2;
+            // Simule fin de l'enregistrement
+            completed[zone] = true;
+            status.classList.remove("hidden");
+            checkIfAllDone();
+          } else if (state === 2) {
+            label.innerText = "Pause";
+            btn.classList.replace("bg-green-600", "bg-yellow-500");
+            state = 1;
+          }
+        });
+
+        trash.addEventListener("click", () => {
+          state = 0;
+          label.innerText = "Enregistrer";
+          btn.classList.remove("bg-yellow-500", "bg-green-600");
+          btn.classList.add("bg-blue-600");
+          trash.classList.add("hidden");
+          status.classList.add("hidden");
+          completed[zone] = false;
+          checkIfAllDone();
+        });
+      }
+
+      setupRecording(1);
+      setupRecording(2);
+      setupRecording(3);
+    </script>
+  </body>
+</html>

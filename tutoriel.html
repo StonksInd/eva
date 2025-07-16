@@ -3,84 +3,276 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page d'explication</title>
+    <title>Page d'explication interactive</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body class="bg-gray-50 text-gray-800 font-sans">
-    <section class="max-w-3xl mx-auto px-4 py-12 space-y-10">
-      <!-- Titre + Texte -->
-      <div class="text-center space-y-4">
-        <h1 class="text-3xl font-bold">Explication de l'étape</h1>
-        <p class="text-gray-600 text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-          odio. Praesent libero. Sed cursus ante dapibus diam.
+  <body class="bg-gray-50 text-gray-800 font-sans relative">
+    <section
+      id="explanation-section"
+      class="max-w-3xl mx-auto px-4 py-12 space-y-7"
+    >
+      <!-- 1. Texte du haut -->
+      <div
+        id="step-1"
+        class="border-4 border-transparent rounded-xl p-4 transition-all"
+      >
+        <h1 class="text-3xl font-bold text-center">Explication de l'étape</h1>
+        <p class="text-center text-gray-600 text-lg mt-2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
       </div>
 
-      <!-- Espace simulant l'image illustrative -->
-      <div class="flex justify-center">
-        <div
-          class="w-70 h-70 bg-gray-200 rounded-xl shadow-lg flex items-center justify-center"
-        >
-          <span class="text-gray-400 text-xl">Espace image</span>
-        </div>
+      <!-- 2. Espace d'image simulé -->
+      <div
+        id="step-2"
+        class="flex justify-center items-center border-4 border-transparent rounded-xl transition-all bg-gray-200 h-64"
+      >
+        <span class="text-gray-500 text-xl">[Espace réservé à l’image]</span>
       </div>
 
-      <!-- Deuxième texte -->
-      <div class="text-center">
+      <!-- 3. Deuxième texte -->
+      <div
+        id="step-3"
+        class="text-center border-4 border-transparent rounded-xl p-4 transition-all"
+      >
         <p class="text-gray-600 text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
         </p>
       </div>
 
-      <div class="flex gap-8 justify-center">
-        <!-- Enregistrement vocal 1 -->
+      <!-- 4. Zone d'enregistrement 1 -->
+      <div class="flex flex-col md:flex-row gap-6">
+        <!-- Zone d'enregistrement 1 -->
         <div
-          class="bg-white rounded-xl shadow-2xl p-6 space-y-4 w-full max-w-xs"
+          id="step-4"
+          class="bg-white rounded-xl shadow p-6 border-4 border-transparent transition-all space-y-4 flex-1"
         >
           <h2 class="text-xl font-semibold">Zone d'enregistrement 1</h2>
-          <p class="text-gray-500 text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            blandit tempus porttitor.
-          </p>
-          <button
-            class="mt-2 inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-            onclick="startRecording(1)"
-          >
-            <i data-lucide="mic" class="w-5 h-5"></i>
-            Enregistrer
-          </button>
+          <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet.</p>
+          <div class="flex items-center gap-3">
+            <button
+              id="recBtn1"
+              class="bg-blue-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-blue-700"
+            >
+              <i data-lucide="mic"></i>
+              <span id="recLabel1">Enregistrer</span>
+            </button>
+            <button id="trash1" class="hidden text-red-600" title="Supprimer">
+              <i data-lucide="trash-2"></i>
+            </button>
+          </div>
         </div>
 
-        <!-- Enregistrement vocal 2 -->
+        <!-- Zone d'enregistrement 2 -->
         <div
-          class="bg-white rounded-xl shadow-2xl p-6 space-y-4 w-full max-w-xs"
+          id="step-5"
+          class="bg-white rounded-xl shadow p-6 border-4 border-transparent transition-all space-y-4 flex-1"
         >
           <h2 class="text-xl font-semibold">Zone d'enregistrement 2</h2>
-          <p class="text-gray-500 text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-            id ligula porta felis euismod semper.
-          </p>
-          <button
-            class="mt-2 inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-            onclick="startRecording(2)"
-          >
-            <i data-lucide="mic" class="w-5 h-5"></i>
-            Enregistrer
-          </button>
+          <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet.</p>
+          <div class="flex items-center gap-3">
+            <button
+              id="recBtn2"
+              class="bg-blue-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-blue-700"
+            >
+              <i data-lucide="mic"></i>
+              <span id="recLabel2">Enregistrer</span>
+            </button>
+            <button id="trash2" class="hidden text-red-600" title="Supprimer">
+              <i data-lucide="trash-2"></i>
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Flèche + Bulle -->
+    <div class="fixed bottom-6 inset-x-0 flex flex-col items-center">
+      <div
+        id="instruction"
+        class="bg-white shadow-lg rounded-xl px-4 py-3 text-center text-sm max-w-md text-gray-700 mb-3 transition-opacity duration-300"
+      >
+        Cliquez sur “Suivant” pour démarrer l’explication.
+      </div>
+      <button
+        id="nextBtn"
+        class="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700"
+      >
+        ⬇️ Suivant
+      </button>
+      <div id="endButtons" class="hidden flex gap-4 mt-3">
+        <button
+          id="restartBtn"
+          class="bg-gray-500 text-white px-4 py-2 rounded-xl hover:bg-gray-600"
+        >
+          🔁 Recommencer l’explication
+        </button>
+        <button
+          id="startBtn"
+          class="bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700"
+        >
+          ✅ Commencer les qualibrages
+        </button>
+      </div>
+    </div>
+
+    <!-- Scripts -->
     <script>
       lucide.createIcons();
 
-      function startRecording(zone) {
-        alert(`Démarrage de l'enregistrement pour la zone ${zone}...`);
-        // Tu pourras ajouter ici la logique Web Audio API ou MediaRecorder
+      const steps = [
+        {
+          id: "step-1",
+          text: "Voici le texte d’introduction de la page. Il vous présente les instructions à suivre.",
+        },
+        {
+          id: "step-2",
+          text: "Ceci est une image qui illustre l’étape décrite ci-dessus.",
+        },
+        {
+          id: "step-3",
+          text: "Ce second texte vous explique en détail le fonctionnement.",
+        },
+        {
+          id: "step-4",
+          text: "Cette zone permet d’enregistrer un message vocal. Cliquez sur le micro pour démarrer.",
+        },
+        {
+          id: "recording-1",
+          idParent: "step-4",
+          text: "Vous êtes en train d’enregistrer. Parlez distinctement.",
+        },
+        {
+          id: "paused-1",
+          idParent: "step-4",
+          text: "Enregistrement en pause. Cliquez sur le micro pour reprendre.",
+        },
+        {
+          id: "deleted-1",
+          idParent: "step-4",
+          text: "Enregistrement supprimé. Vous pouvez recommencer.",
+        },
+        {
+          id: "step-5",
+          text: "Deuxième zone d’enregistrement. Vous pouvez enregistrer un second message.",
+        },
+        {
+          id: "recording-2",
+          idParent: "step-5",
+          text: "Vous êtes en train d’enregistrer le second message.",
+        },
+        {
+          id: "paused-2",
+          idParent: "step-5",
+          text: "En pause. Cliquez sur le micro pour continuer.",
+        },
+        {
+          id: "deleted-2",
+          idParent: "step-5",
+          text: "Vous avez supprimé le second enregistrement.",
+        },
+      ];
+
+      let currentStep = -1;
+
+      function clearBorders() {
+        steps.forEach((s) => {
+          const el = document.getElementById(s.idParent || s.id);
+          if (el) {
+            el.classList.remove("border-red-500");
+            el.classList.add("border-transparent");
+          }
+        });
       }
+
+      function showStep(index) {
+        if (index >= steps.length) return;
+        clearBorders();
+        const step = steps[index];
+        const el = document.getElementById(step.idParent || step.id);
+        if (el) {
+          el.classList.remove("border-transparent");
+          el.classList.add("border-red-500");
+        }
+        document.getElementById("instruction").innerText = step.text;
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        currentStep++;
+        if (currentStep < steps.length) {
+          showStep(currentStep);
+        } else {
+          document.getElementById("instruction").innerText =
+            "Fin de l’explication.";
+          clearBorders();
+          document.getElementById("nextBtn").classList.add("hidden");
+          document.getElementById("endButtons").classList.remove("hidden");
+        }
+      });
+
+      function setupRecording(zone) {
+        let state = 0; // 0 = prêt, 1 = enregistrement, 2 = pause
+        const btn = document.getElementById(`recBtn${zone}`);
+        const label = document.getElementById(`recLabel${zone}`);
+        const trash = document.getElementById(`trash${zone}`);
+
+        btn.addEventListener("click", () => {
+          if (state === 0) {
+            // Start recording
+            label.innerText = "Pause";
+            btn.classList.replace("bg-blue-600", "bg-yellow-500");
+            trash.classList.remove("hidden");
+            state = 1;
+            currentStep++;
+            showStep(currentStep); // Enregistrement démarré
+          } else if (state === 1) {
+            // Pause
+            label.innerText = "Reprendre";
+            btn.classList.replace("bg-yellow-500", "bg-green-600");
+            state = 2;
+            currentStep++;
+            showStep(currentStep); // Enregistrement en pause
+          } else if (state === 2) {
+            // Reprendre
+            label.innerText = "Pause";
+            btn.classList.replace("bg-green-600", "bg-yellow-500");
+            state = 1;
+            // Ne déclenche pas de nouvelle étape
+            document.getElementById("instruction").innerText =
+              "Enregistrement repris.";
+          }
+        });
+
+        trash.addEventListener("click", () => {
+          // Reset
+          state = 0;
+          label.innerText = "Enregistrer";
+          btn.classList.remove("bg-yellow-500", "bg-green-600");
+          btn.classList.add("bg-blue-600");
+          trash.classList.add("hidden");
+          currentStep++;
+          showStep(currentStep); // Enregistrement supprimé
+        });
+      }
+
+      setupRecording(1);
+      setupRecording(2);
+
+      document.getElementById("restartBtn").addEventListener("click", () => {
+        currentStep = -1;
+        clearBorders();
+        document.getElementById("instruction").innerText =
+          "Cliquez sur “Suivant” pour démarrer l’explication.";
+        document.getElementById("nextBtn").classList.remove("hidden");
+        document.getElementById("endButtons").classList.add("hidden");
+      });
+
+      document.getElementById("startBtn").addEventListener("click", () => {
+        // Redirection ou action vers expérience réelle
+        alert("L'expérience va commencer !");
+        // window.location.href = "experience.html"; // Par exemple
+      });
     </script>
   </body>
 </html>
