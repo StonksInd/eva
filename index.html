@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page d'accueil</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Hero Section (simule Heroes UI) -->
+    <section
+      class="min-h-screen flex flex-col justify-center items-center text-center px-4 py-12"
+    >
+      <h1 class="text-4xl sm:text-5xl font-bold mb-6">
+        Bienvenue sur notre plateforme
+      </h1>
+
+      <p class="max-w-2xl text-lg sm:text-xl text-gray-600 mb-8">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+        odio. Praesent libero. Sed cursus ante dapibus diam.
+      </p>
+
+      <p class="max-w-xl text-md sm:text-lg text-gray-500 mb-10">
+        Notre objectif est de vous offrir une expérience claire, intuitive et
+        adaptée à vos besoins. Découvrez les fonctionnalités dès maintenant.
+      </p>
+
+      <a
+        href="/experience.html"
+        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-2xl shadow hover:bg-blue-700 transition"
+      >
+        <i data-lucide="rocket" class="w-5 h-5 mr-2"></i>
+        Commencer l'expérience
+      </a>
+    </section>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
