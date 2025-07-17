@@ -20,29 +20,55 @@
       }
     </style>
   </head>
-  <body class="bg-[#EFE7E0] text-[#0E222D]">
-    <!-- Hero Section -->
+  <body
+    class="bg-[#EFE7E0] text-[#0E222D] min-h-screen flex flex-col items-center justify-start pt-6"
+  >
+    <!-- 🖼️ Logos en haut -->
+    <div class="flex items-center justify-center gap-6 mb-4">
+      <img
+        src="../logoCHU.png"
+        alt="Logo 1"
+        class="h-24 max-h-[100px] object-contain"
+      />
+      <img
+        src="../logoMFU.png"
+        alt="Logo 2"
+        class="h-48 max-h-[200px] object-contain"
+      />
+    </div>
+    <!-- Image d’arrière-plan -->
+    <div
+      class="absolute inset-0 z-0"
+      style="
+        background-image: url('../senior.png'); /* Remplace par ton chemin d’image */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2; /* Transparence */
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Contenu principal -->
     <section
-      class="min-h-screen flex flex-col justify-center items-center text-center px-4 py-12"
+      class="relative z-10 flex flex-col justify-start items-center text-center px-4 py-6 mt-4"
     >
       <h1 class="text-4xl sm:text-5xl font-bold mb-6 text-[#0E222D]">
         Bienvenue sur l'expérience <span class="text-[#52B4BD]">EVA</span>
       </h1>
 
       <p class="max-w-2xl text-lg sm:text-xl text-[#0E222D] mb-8">
-        Le but de <strong class="text-[#80C8E8]">EVA</strong> est de permettre
-        de récolter des données anonymisées sur les interactions vocales des
-        utilisateurs sur des images sélectionnées. Nous utilisons ces données
-        pour améliorer l'expérience utilisateur et pour des recherches en
-        intelligence artificielle. <br /><br />
-        <strong class="text-[#CF7278]"
-          >Les données sont rendues anonymes.</strong
-        >
+        Le but de EVA est de permettre de recolter des données anonymisées sur
+        les interactions vocales des utilisateurs sur des images sélectionnées.
+        Nous utilisons ces données pour améliorer l'expérience utilisateur et
+        pour des recherches en intelligence artificielle.
         <br />
-        Nous demandons une réponse audio à chaque image présentée. Elle doit
-        être spontanée, non influencée par un tiers. Nous vérifierons que vous
-        avez bien accès à votre microphone et à vos enceintes avant de
-        commencer.
+        <br />
+        <strong>Les données sont rendues anonymes</strong>
+        <br />
+        Nous demandons une réponse audio à chaque image présentée, il faut
+        qu'elle soit spontanée et non influencé par un tier, et nous vérifions
+        que vous avez bien accès à votre microphone et à vos enceintes avant de
+        commencer l'expérience.
       </p>
 
       <p class="max-w-xl text-md sm:text-lg text-[#607D8B] mb-10">

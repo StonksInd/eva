@@ -20,9 +20,23 @@
       }
     </style>
   </head>
-  <body class="bg-[#EFE7E0] text-[#0E222D] flex flex-col min-h-screen">
-    <!-- Texte explicatif -->
-    <header class="px-4 py-6 text-center">
+  <body
+    class="relative bg-[#EFE7E0] text-[#0E222D] flex flex-col min-h-screen overflow-hidden"
+  >
+    <!-- Arrière-plan image -->
+    <div
+      class="absolute inset-0 z-0"
+      style="
+        background-image: url('../s&m.png'); /* ← remplace ici */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Contenu principal -->
+    <header class="relative z-10 px-4 py-6 text-center">
       <h1 class="text-3xl font-bold text-[#52B4BD] mb-2">
         Tutoriel de l’expérience
       </h1>
@@ -32,8 +46,9 @@
       </p>
     </header>
 
-    <!-- Vidéo plein écran -->
-    <main class="flex-1 flex items-center justify-center px-4 pb-10">
+    <main
+      class="relative z-10 flex-1 flex items-center justify-center px-4 pb-10"
+    >
       <div
         class="w-full max-w-6xl aspect-video rounded-2xl overflow-hidden shadow-xl bg-black"
       >
@@ -43,7 +58,7 @@
           controls
           poster="video-thumbnail.jpg"
         >
-          <source src="C:\Users\Pierre\Desktop\tutoriel.mp4" type="video/mp4" />
+          <source src="video/tutoriel.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas la lecture vidéo.
         </video>
       </div>

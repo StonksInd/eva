@@ -16,8 +16,22 @@
       }
     </style>
   </head>
-  <body class="bg-[#EFE7E0] text-[#0E222D] font-sans">
-    <section class="max-w-2xl mx-auto px-4 py-12 space-y-8">
+  <body
+    class="relative bg-[#EFE7E0] text-[#0E222D] font-sans min-h-screen overflow-hidden"
+  >
+    <!-- Arrière-plan image floutée -->
+    <div
+      class="fixed top-0 left-0 w-full h-full z-0 blur-sm opacity-40"
+      style="
+        background-image: url('../m&s.png'); /* ← remplace ici */
+        background-size: cover;
+        background-position: center;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Contenu principal -->
+    <section class="relative z-10 max-w-2xl mx-auto px-4 py-12 space-y-8">
       <!-- Explication -->
       <div class="text-center">
         <h1 class="text-3xl font-bold text-[#52B4BD]">
@@ -93,6 +107,7 @@
       </div>
     </section>
 
+    <!-- Script JS -->
     <script>
       lucide.createIcons();
 
@@ -107,7 +122,7 @@
       }
 
       function setupRecording(zone) {
-        let state = 0; // 0 = prêt, 1 = enregistrement, 2 = terminé
+        let state = 0;
         const btn = document.getElementById(`recBtn${zone}`);
         const label = document.getElementById(`recLabel${zone}`);
         const trash = document.getElementById(`trash${zone}`);

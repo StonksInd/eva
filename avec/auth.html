@@ -16,9 +16,22 @@
       }
     </style>
   </head>
-  <body class="bg-[#EFE7E0] text-[#0E222D]">
+  <body class="relative bg-[#EFE7E0] text-[#0E222D] overflow-hidden">
+    <!-- Arrière-plan image -->
+    <div
+      class="absolute inset-0 z-0"
+      style="
+        background-image: url('../granny.png'); /* Remplace ici */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Section principale -->
     <section
-      class="min-h-screen flex flex-col justify-center items-center px-4 py-10"
+      class="relative z-10 min-h-screen flex flex-col justify-center items-center px-4 py-10"
     >
       <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8 space-y-6">
         <h1 class="text-3xl font-bold text-center mb-4 text-[#52B4BD]">
@@ -72,7 +85,7 @@
             </select>
           </div>
 
-          <!-- Cases à cocher -->
+          <!-- Case à cocher -->
           <div class="space-y-3 text-sm text-[#0E222D]">
             <label class="flex items-start gap-2">
               <input type="checkbox" id="check3" class="mt-1" />
@@ -80,7 +93,8 @@
               <a
                 href="/conditions.html"
                 class="underline text-[#607D8B] hover:text-[#0E222D]"
-                >conditions d'utilisation</a
+              >
+                conditions d'utilisation </a
               >.
             </label>
           </div>
