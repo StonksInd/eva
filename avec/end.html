@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fin de l'expérience</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-[#EFE7E0] text-[#0E222D] flex items-center justify-center min-h-screen"
+  >
+    <div
+      class="text-center bg-white shadow-xl rounded-2xl p-10 max-w-xl w-full space-y-6"
+    >
+      <h1 class="text-3xl font-bold text-[#52B4BD]">
+        Merci pour votre participation !
+      </h1>
+      <p class="text-lg text-[#0E222D]">
+        Vous avez terminé l’expérience avec succès.
+      </p>
+
+      <!-- Email -->
+      <div class="space-y-4">
+        <p class="text-md">Souhaitez-vous suivre les résultats par email ?</p>
+        <div
+          class="flex flex-col sm:flex-row items-center gap-3 justify-center"
+        >
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="Entrez votre email"
+            class="px-4 py-2 rounded-xl border border-gray-300 w-full sm:w-auto"
+          />
+          <button
+            onclick="submitEmail()"
+            class="bg-[#8D79AC] text-white px-4 py-2 rounded-xl hover:bg-[#77619a] transition flex items-center gap-2"
+          >
+            <i data-lucide="mail"></i> Suivre par email
+          </button>
+        </div>
+        <p id="emailMessage" class="text-sm text-green-600 font-medium hidden">
+          Votre email a bien été enregistré !
+        </p>
+      </div>
+
+      <!-- Fin -->
+      <div class="pt-2">
+        <button
+          onclick="finishExperience()"
+          class="bg-green-600 text-white px-6 py-3 rounded-xl text-lg hover:bg-green-700 transition"
+        >
+          Finir l'expérience
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function finishExperience() {
+        alert("Merci encore ! Vous pouvez fermer la page.");
+        // window.location.href = "merci.html"; // ou une autre redirection
+      }
+
+      function submitEmail() {
+        const email = document.getElementById("emailInput").value.trim();
+        const msg = document.getElementById("emailMessage");
+
+        if (email && validateEmail(email)) {
+          msg.classList.remove("hidden");
+          msg.innerText = "✅ Votre email a bien été enregistré !";
+          console.log("Email enregistré :", email);
+        } else {
+          msg.classList.remove("hidden");
+          msg.innerText = "❌ Veuillez entrer une adresse email valide.";
+          msg.classList.remove("text-green-600");
+          msg.classList.add("text-red-600");
+        }
+      }
+
+      function validateEmail(email) {
+        return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+      }
+
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

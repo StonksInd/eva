@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fin de l'expérience</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body
+    class="bg-gray-100 text-gray-800 font-sans flex items-center justify-center min-h-screen"
+  >
+    <div
+      class="text-center bg-white shadow-xl rounded-2xl p-10 max-w-xl w-full space-y-6"
+    >
+      <h1 class="text-3xl font-bold">Merci pour votre participation !</h1>
+      <p class="text-gray-600 text-lg">
+        Vous avez terminé l’expérience avec succès.
+      </p>
+
+      <!-- Champ email -->
+      <div class="space-y-3">
+        <p class="text-gray-700 text-md">
+          Souhaitez-vous suivre les résultats de l’expérience par email ?
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center gap-3 justify-center"
+        >
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="Entrez votre adresse email"
+            class="px-4 py-2 rounded-lg border border-gray-300 w-full sm:w-auto"
+          />
+          <button
+            onclick="submitEmail()"
+            class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition"
+          >
+            suivre par email
+          </button>
+        </div>
+        <p id="emailMessage" class="text-sm text-green-600 hidden">
+          Votre email a bien été enregistré !
+        </p>
+      </div>
+
+      <!-- Finir l'expérience -->
+      <div>
+        <button
+          onclick="finishExperience()"
+          class="bg-green-600 text-white px-6 py-3 rounded-xl text-lg hover:bg-green-700 transition"
+        >
+          Finir l'expérience
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function finishExperience() {
+        alert("Merci encore ! Vous pouvez fermer la page.");
+        // Redirection possible ici si besoin
+        // window.location.href = "https://ton-site.com/merci";
+      }
+
+      function submitEmail() {
+        const email = document.getElementById("emailInput").value.trim();
+        const msg = document.getElementById("emailMessage");
+
+        if (email && validateEmail(email)) {
+          // Simuler envoi : ici tu peux appeler une API pour sauvegarder l’email
+          msg.classList.remove("hidden");
+          console.log("Email enregistré :", email);
+        } else {
+          alert("Veuillez entrer une adresse email valide.");
+        }
+      }
+
+      function validateEmail(email) {
+        // Validation simple
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

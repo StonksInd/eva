@@ -19,25 +19,49 @@
       >
         <h1 class="text-3xl font-bold text-center">Explication de l'étape</h1>
         <p class="text-center text-gray-600 text-lg mt-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Regardez attentivement l'image et suivez les instructions fournies.
         </p>
       </div>
 
-      <!-- 2. Espace d'image simulé -->
+      <!-- 2. Espace d'image  -->
       <div
         id="step-2"
-        class="flex justify-center items-center border-4 border-transparent rounded-xl transition-all bg-gray-200 h-64"
+        class="flex justify-center items-center border-4 border-transparent rounded-xl transition-all bg-gray-200"
       >
-        <span class="text-gray-500 text-xl">[Espace réservé à l’image]</span>
+        <img
+          src="img.png"
+          alt="Illustration de l'étape"
+          class="h-64 w-auto rounded-lg"
+        />
       </div>
+      <div class="flex justify-center pt-4">
+        <button
+          id="step-3"
+          class="border-4 border-transparent bg-purple-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-purple-700"
+        >
+          <i data-lucide="image"></i>
+          Changer l'image
+        </button>
+      </div>
+      <script>
+        document
+          .getElementById("step-3")
+          .addEventListener("click", function () {
+            const imgDiv = document.querySelector(".bg-gray-200.h-64");
+            imgDiv.innerHTML =
+              '<span class="text-gray-500 text-xl">[Nouvelle image illustrative]</span>';
+            lucide.createIcons();
+          });
+      </script>
 
       <!-- 3. Deuxième texte -->
       <div
-        id="step-3"
+        id="step-4"
         class="text-center border-4 border-transparent rounded-xl p-4 transition-all"
       >
         <p class="text-gray-600 text-lg">
-          Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+          Cliquez sue le micro puis exprimez vous en répondant aux questions
+          suivantes
         </p>
       </div>
 
@@ -45,11 +69,12 @@
       <div class="flex flex-col md:flex-row gap-6">
         <!-- Zone d'enregistrement 1 -->
         <div
-          id="step-4"
-          class="bg-white rounded-xl shadow p-6 border-4 border-transparent transition-all space-y-4 flex-1"
+          id="step-5"
+          class="bg-white rounded-xl shadow p-6 border-4 border-transparent transition-all space-y-4 w-full md:basis-[48%]"
         >
-          <h2 class="text-xl font-semibold">Zone d'enregistrement 1</h2>
-          <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet.</p>
+          <h2 class="text-xl font-semibold">Que vous évoque cette image ?</h2>
+          <br />
+          <p class="text-gray-500 text-sm">Parlez distinctement</p>
           <div class="flex items-center gap-3">
             <button
               id="recBtn1"
@@ -66,11 +91,13 @@
 
         <!-- Zone d'enregistrement 2 -->
         <div
-          id="step-5"
-          class="bg-white rounded-xl shadow p-6 border-4 border-transparent transition-all space-y-4 flex-1"
+          id="step-6"
+          class="bg-white rounded-xl shadow p-6 border-4 border-transparent transition-all space-y-4 w-full md:basis-[48%]"
         >
-          <h2 class="text-xl font-semibold">Zone d'enregistrement 2</h2>
-          <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet.</p>
+          <h2 class="text-xl font-semibold">
+            Racontez-nous un souvenir en lien avec ce ressenti
+          </h2>
+          <p class="text-gray-500 text-sm">Parlez distinctement</p>
           <div class="flex items-center gap-3">
             <button
               id="recBtn2"
@@ -89,18 +116,15 @@
 
     <!-- Flèche + Bulle -->
     <div class="fixed bottom-6 inset-x-0 flex flex-col items-center">
-      <div
-        id="instruction"
-        class="bg-white shadow-lg rounded-xl px-4 py-3 text-center text-sm max-w-md text-gray-700 mb-3 transition-opacity duration-300"
-      >
-        Cliquez sur “Suivant” pour démarrer l’explication.
+      <div class="text-center pt-8">
+        <button
+          id="step-7"
+          class="border-4 border-transparent bg-green-600 text-white px-6 py-3 rounded-xl text-lg shadow hover:bg-green-700"
+          onclick="goToNextStep()"
+        >
+          ➡️ Suivant
+        </button>
       </div>
-      <button
-        id="nextBtn"
-        class="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700"
-      >
-        ⬇️ Suivant
-      </button>
       <div id="endButtons" class="hidden flex gap-4 mt-3">
         <button
           id="restartBtn"
@@ -128,49 +152,47 @@
         },
         {
           id: "step-2",
-          text: "Ceci est une image qui illustre l’étape décrite ci-dessus.",
+          text: "Ceci est l'image sur laquelle vous devez vous concentrer.",
         },
         {
           id: "step-3",
-          text: "Ce second texte vous explique en détail le fonctionnement.",
+          text: "Ce bouton vous permet de changer l'image affichée pour une nouvelle illustration.",
         },
         {
           id: "step-4",
-          text: "Cette zone permet d’enregistrer un message vocal. Cliquez sur le micro pour démarrer.",
-        },
-        {
-          id: "recording-1",
-          idParent: "step-4",
-          text: "Vous êtes en train d’enregistrer. Parlez distinctement.",
-        },
-        {
-          id: "paused-1",
-          idParent: "step-4",
-          text: "Enregistrement en pause. Cliquez sur le micro pour reprendre.",
-        },
-        {
-          id: "deleted-1",
-          idParent: "step-4",
-          text: "Enregistrement supprimé. Vous pouvez recommencer.",
+          text: "Ce second texte vous explique en détail le fonctionnement.",
         },
         {
           id: "step-5",
-          text: "Deuxième zone d’enregistrement. Vous pouvez enregistrer un second message.",
+          text: "Cette zone permet d’enregistrer un message vocal. Vous pourrez cliquer sur le micro le démarrer.",
         },
         {
-          id: "recording-2",
+          id: "recording-1",
           idParent: "step-5",
-          text: "Vous êtes en train d’enregistrer le second message.",
+          text: "Cela montre que vous êtes en train d’enregistrer un message.",
         },
         {
-          id: "paused-2",
+          id: "paused-1",
           idParent: "step-5",
-          text: "En pause. Cliquez sur le micro pour continuer.",
+          text: "Si vous cliquez sur le micro, l’enregistrement se met en pause. Vous pouvez cliquer à nouveau pour reprendre.",
         },
         {
-          id: "deleted-2",
+          id: "deleted-1",
           idParent: "step-5",
-          text: "Vous avez supprimé le second enregistrement.",
+          text: "Si vous cliquez sur la corbeille, l’enregistrement est supprimé. En cliquant à nouveau sur le micro, vous pouvez recommencer l’enregistrement.",
+        },
+        {
+          id: "step-6",
+          text: "Cette seconde zone permet d’enregistrer un autre message vocal. Vous pouvez suivre le même processus que pour la première zone.",
+        },
+        {
+          id: "step-7",
+          text: "Cliquez sur le bouton 'Suivant' pour passer à la prochaine image",
+        },
+
+        {
+          id: "end",
+          text: "Vous avez terminé l'explication. Cliquez sur 'Commencer les qualibrages' pour démarrer l'expérience.",
         },
       ];
 
@@ -198,7 +220,7 @@
         document.getElementById("instruction").innerText = step.text;
       }
 
-      document.getElementById("nextBtn").addEventListener("click", () => {
+      document.getElementById("step-7").addEventListener("click", () => {
         currentStep++;
         if (currentStep < steps.length) {
           showStep(currentStep);
@@ -206,7 +228,7 @@
           document.getElementById("instruction").innerText =
             "Fin de l’explication.";
           clearBorders();
-          document.getElementById("nextBtn").classList.add("hidden");
+          document.getElementById("step-7").classList.add("hidden");
           document.getElementById("endButtons").classList.remove("hidden");
         }
       });
@@ -264,7 +286,7 @@
         clearBorders();
         document.getElementById("instruction").innerText =
           "Cliquez sur “Suivant” pour démarrer l’explication.";
-        document.getElementById("nextBtn").classList.remove("hidden");
+        document.getElementById("step-7").classList.remove("hidden");
         document.getElementById("endButtons").classList.add("hidden");
       });
 

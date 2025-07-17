@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentification</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-[#EFE7E0] text-[#0E222D]">
+    <section
+      class="min-h-screen flex flex-col justify-center items-center px-4 py-10"
+    >
+      <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8 space-y-6">
+        <h1 class="text-3xl font-bold text-center mb-4 text-[#52B4BD]">
+          Informations personnelles
+        </h1>
+
+        <!-- Formulaire -->
+        <form id="authForm" class="space-y-5">
+          <!-- Département -->
+          <div>
+            <label class="block text-sm font-semibold mb-1" for="departement"
+              >Département</label
+            >
+            <input
+              type="text"
+              id="departement"
+              name="departement"
+              placeholder="ex: 75"
+              class="w-full border border-[#CF7278] rounded-xl p-3 focus:ring focus:ring-[#FFD700]"
+            />
+          </div>
+
+          <!-- Âge -->
+          <div>
+            <label class="block text-sm font-semibold mb-1" for="age"
+              >Âge</label
+            >
+            <input
+              type="number"
+              id="age"
+              name="age"
+              min="0"
+              max="120"
+              class="w-full border border-[#CF7278] rounded-xl p-3 focus:ring focus:ring-[#FFD700]"
+            />
+          </div>
+
+          <!-- Sexe -->
+          <div>
+            <label class="block text-sm font-semibold mb-1" for="sexe"
+              >Sexe</label
+            >
+            <select
+              id="sexe"
+              name="sexe"
+              class="w-full border border-[#CF7278] rounded-xl p-3 focus:ring focus:ring-[#FFD700]"
+            >
+              <option value="">Sélectionnez</option>
+              <option value="Femme">Femme</option>
+              <option value="Homme">Homme</option>
+            </select>
+          </div>
+
+          <!-- Cases à cocher -->
+          <div class="space-y-3 text-sm text-[#0E222D]">
+            <label class="flex items-start gap-2">
+              <input type="checkbox" id="check3" class="mt-1" />
+              J'accepte les
+              <a
+                href="/conditions.html"
+                class="underline text-[#607D8B] hover:text-[#0E222D]"
+                >conditions d'utilisation</a
+              >.
+            </label>
+          </div>
+
+          <!-- Bouton Commencer -->
+          <button
+            type="submit"
+            id="startBtn"
+            disabled
+            class="w-full mt-6 px-6 py-3 bg-[#80C8E8] text-white font-semibold rounded-xl shadow transition disabled:opacity-50 hover:bg-[#52B4BD]"
+          >
+            Commencer
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Script Lucide & validation -->
+    <script>
+      lucide.createIcons();
+
+      function checkFormFilled() {
+        const departement = document.getElementById("departement").value.trim();
+        const age = document.getElementById("age").value.trim();
+        const sexe = document.getElementById("sexe").value;
+        const checkboxes = ["check3"].map((id) => document.getElementById(id));
+        const allChecked = checkboxes.every((c) => c.checked);
+        return departement && age && sexe && allChecked;
+      }
+
+      const startBtn = document.getElementById("startBtn");
+      const inputs = [
+        document.getElementById("departement"),
+        document.getElementById("age"),
+        document.getElementById("sexe"),
+        ...["check3"].map((id) => document.getElementById(id)),
+      ];
+
+      function updateButtonStyle() {
+        if (checkFormFilled()) {
+          startBtn.disabled = false;
+          startBtn.classList.remove("bg-[#80C8E8]");
+          startBtn.classList.add("bg-[#52B4BD]");
+        } else {
+          startBtn.disabled = true;
+          startBtn.classList.remove("bg-[#52B4BD]");
+          startBtn.classList.add("bg-[#80C8E8]");
+        }
+      }
+
+      inputs.forEach((input) => {
+        input.addEventListener("input", updateButtonStyle);
+        input.addEventListener("change", updateButtonStyle);
+      });
+
+      document
+        .getElementById("authForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Authentification réussie. Redirection...");
+          // window.location.href = "/suivant.html";
+        });
+    </script>
+  </body>
+</html>

@@ -64,14 +64,6 @@
           <!-- Cases à cocher -->
           <div class="space-y-3 text-sm text-gray-700">
             <label class="flex items-start gap-2">
-              <input type="checkbox" id="check1" class="mt-1" />
-              Je confirme que mes données ci-dessus sont exactes.
-            </label>
-            <label class="flex items-start gap-2">
-              <input type="checkbox" id="check2" class="mt-1" />
-              Je confirme avoir lu et compris les consignes.
-            </label>
-            <label class="flex items-start gap-2">
               <input type="checkbox" id="check3" class="mt-1" />
               J'accepte les
               <a
@@ -140,10 +132,7 @@
     <script>
       lucide.createIcons();
 
-      const checkboxes = ["check1", "check2", "check3"].map((id) =>
-        document.getElementById(id)
-      );
-      const startBtn = document.getElementById("startBtn");
+      const checkboxes = ["check3"].map((id) => document.getElementById(id));
 
       checkboxes.forEach((cb) => {
         cb.addEventListener("change", () => {

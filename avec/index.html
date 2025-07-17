@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page d'accueil</title>
+
+    <!-- Typographie Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-[#EFE7E0] text-[#0E222D]">
+    <!-- Hero Section -->
+    <section
+      class="min-h-screen flex flex-col justify-center items-center text-center px-4 py-12"
+    >
+      <h1 class="text-4xl sm:text-5xl font-bold mb-6 text-[#0E222D]">
+        Bienvenue sur l'expérience <span class="text-[#52B4BD]">EVA</span>
+      </h1>
+
+      <p class="max-w-2xl text-lg sm:text-xl text-[#0E222D] mb-8">
+        Le but de <strong class="text-[#80C8E8]">EVA</strong> est de permettre
+        de récolter des données anonymisées sur les interactions vocales des
+        utilisateurs sur des images sélectionnées. Nous utilisons ces données
+        pour améliorer l'expérience utilisateur et pour des recherches en
+        intelligence artificielle. <br /><br />
+        <strong class="text-[#CF7278]"
+          >Les données sont rendues anonymes.</strong
+        >
+        <br />
+        Nous demandons une réponse audio à chaque image présentée. Elle doit
+        être spontanée, non influencée par un tiers. Nous vérifierons que vous
+        avez bien accès à votre microphone et à vos enceintes avant de
+        commencer.
+      </p>
+
+      <p class="max-w-xl text-md sm:text-lg text-[#607D8B] mb-10">
+        <strong>Important :</strong> Avant de commencer, assurez-vous d'être
+        dans un environnement calme. Quand vous êtes prêt, cliquez sur le bouton
+        ci-dessous pour continuer vers la page d'aide et de vérification.
+      </p>
+
+      <a
+        href="/experience.html"
+        class="inline-flex items-center px-6 py-3 bg-[#52B4BD] text-white text-lg font-semibold rounded-2xl shadow hover:bg-[#0E222D] transition"
+      >
+        <i data-lucide="rocket" class="w-5 h-5 mr-2"></i>
+        Aller à la page d'information
+      </a>
+    </section>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
