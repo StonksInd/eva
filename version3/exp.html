@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expérience utilisateur</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-[#EFE7E0] text-[#0E222D] relative">
+    <!-- Image plein écran au début -->
+    <div
+      id="fullscreenImage"
+      class="fixed inset-0 z-50 bg-black flex items-center justify-center transition-all duration-1000"
+    >
+      <img
+        src="../img.png"
+        alt="Image grand format"
+        class="h-full object-contain"
+      />
+    </div>
+
+    <!-- Contenu principal -->
+    <main
+      id="mainContent"
+      class="opacity-0 transition-opacity duration-1000 ease-in-out pt-12 px-4 max-w-4xl mx-auto"
+    >
+      <!-- Titre -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-[#52B4BD]"></h1>
+        <p class="text-lg mt-2"></p>
+        <button
+          id="showImageBtn"
+          class="mt-4 text-sm bg-[#8D79AC] text-white px-4 py-2 rounded-xl hover:bg-[#77619a]"
+        ></button>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8 mb-12">
+        <!-- Image à gauche (1/3 de l’écran) -->
+        <div class="w-full lg:w-1/3 flex justify-center items-start">
+          <img
+            src="../img.png"
+            alt="Image réduite"
+            class="h-[34rem] w-auto rounded-xl shadow-lg"
+          />
+        </div>
+
+        <!-- Questions à droite (2/3 de l’écran) -->
+        <div class="w-full lg:w-2/3 space-y-10 text-2xl">
+          <!-- Étape 1 -->
+          <section id="etape1" class="bg-white p-10 rounded-2xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-6 text-[#0E222D]">
+              1️⃣ Que vous évoque cette image ?
+            </h2>
+            <p class="text-xl text-gray-700 mb-6">
+              Appuyez pour enregistrer. Vous pouvez aussi supprimer et
+              recommencer.
+            </p>
+            <div class="flex items-center">
+              <button
+                id="recBtn1"
+                class="flex-1 bg-blue-600 text-white px-8 py-6 rounded-xl flex items-center justify-center gap-4 text-2xl hover:bg-blue-700"
+              >
+                <i data-lucide="mic" class="w-8 h-8"></i>
+                <span id="recLabel1">🎙️ Enregistrer</span>
+              </button>
+              <button
+                id="trash1"
+                class="ml-6 text-red-600 hidden"
+                title="Supprimer"
+              >
+                <i data-lucide="trash-2" class="w-8 h-8"></i>
+              </button>
+            </div>
+          </section>
+
+          <!-- Étape 2 -->
+          <section
+            id="etape2"
+            class="bg-white p-10 rounded-2xl shadow-xl hidden"
+          >
+            <h2 class="text-3xl font-bold mb-6 text-[#0E222D]">
+              2️⃣ Racontez-nous un souvenir lié à ce ressenti
+            </h2>
+            <p class="text-xl text-gray-700 mb-6">
+              Appuyez pour enregistrer votre réponse. Vous pouvez recommencer.
+            </p>
+            <div class="flex items-center">
+              <button
+                id="recBtn2"
+                class="flex-1 bg-blue-600 text-white px-8 py-6 rounded-xl flex items-center justify-center gap-4 text-2xl hover:bg-blue-700"
+              >
+                <i data-lucide="mic" class="w-8 h-8"></i>
+                <span id="recLabel2">🎙️ Enregistrer</span>
+              </button>
+              <button
+                id="trash2"
+                class="ml-6 text-red-600 hidden"
+                title="Supprimer"
+              >
+                <i data-lucide="trash-2" class="w-8 h-8"></i>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Bouton suivant -->
+      <div class="text-center pt-6">
+        <button
+          id="nextBtn"
+          disabled
+          class="bg-green-600 opacity-50 text-white px-6 py-3 rounded-xl text-lg shadow transition hover:bg-green-700 disabled:cursor-not-allowed"
+        >
+          ➡️ Suivant
+        </button>
+      </div>
+    </main>
+
+    <script>
+      lucide.createIcons();
+
+      const fullscreenImage = document.getElementById("fullscreenImage");
+      const mainContent = document.getElementById("mainContent");
+      const showImageBtn = document.getElementById("showImageBtn");
+
+      // Affiche l’image plein écran pendant 5s
+      setTimeout(() => {
+        fullscreenImage.classList.add("opacity-0", "pointer-events-none");
+        mainContent.classList.remove("opacity-0");
+      }, 5000);
+
+      showImageBtn.addEventListener("click", () => {
+        fullscreenImage.classList.remove("opacity-0", "pointer-events-none");
+        setTimeout(() => {
+          fullscreenImage.classList.add("opacity-0", "pointer-events-none");
+        }, 3000);
+      });
+
+      // LOGIQUE D’ENREGISTREMENT SANS ÉCOUTE
+      let audioCtx, analyser, sourceNode, animationId;
+
+      function setupRecorder(zone) {
+        const recBtn = document.getElementById(`recBtn${zone}`);
+        const recLabel = document.getElementById(`recLabel${zone}`);
+        const trashBtn = document.getElementById(`trash${zone}`);
+        const nextBtn = document.getElementById("nextBtn");
+
+        let state = 0;
+        let recorder;
+        let audioChunks = [];
+        let recordedBlob = null;
+        let canvas = null;
+        let stream;
+
+        function setupVisualizer(stream, canvas) {
+          audioCtx = new AudioContext();
+          analyser = audioCtx.createAnalyser();
+          sourceNode = audioCtx.createMediaStreamSource(stream);
+          analyser.fftSize = 256;
+          const bufferLength = analyser.frequencyBinCount;
+          const dataArray = new Uint8Array(bufferLength);
+          const canvasCtx = canvas.getContext("2d");
+
+          sourceNode.connect(analyser);
+
+          function draw() {
+            animationId = requestAnimationFrame(draw);
+            analyser.getByteTimeDomainData(dataArray);
+            canvasCtx.fillStyle = "#F3F4F6";
+            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+            canvasCtx.lineWidth = 2;
+            canvasCtx.strokeStyle = "#52B4BD";
+            canvasCtx.beginPath();
+
+            let sliceWidth = (canvas.width * 1.0) / bufferLength;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+              let v = dataArray[i] / 128.0;
+              let y = (v * canvas.height) / 2;
+              i === 0 ? canvasCtx.moveTo(x, y) : canvasCtx.lineTo(x, y);
+              x += sliceWidth;
+            }
+
+            canvasCtx.lineTo(canvas.width, canvas.height / 2);
+            canvasCtx.stroke();
+          }
+
+          draw();
+        }
+
+        recBtn.addEventListener("click", async () => {
+          if (state === 0) {
+            recLabel.textContent = "Finir l'enregistrement";
+            recBtn.classList.replace("bg-blue-600", "bg-yellow-500");
+            trashBtn.classList.remove("hidden");
+
+            canvas = document.createElement("canvas");
+            canvas.width = 300;
+            canvas.height = 60;
+            canvas.className = "mx-auto my-4 bg-gray-100 rounded shadow";
+            recBtn.parentElement.appendChild(canvas);
+
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recorder = new MediaRecorder(stream);
+            recorder.ondataavailable = (e) => audioChunks.push(e.data);
+            recorder.start();
+
+            setupVisualizer(stream, canvas);
+            state = 1;
+          } else if (state === 1) {
+            recorder.stop();
+            stream.getTracks().forEach((t) => t.stop());
+            cancelAnimationFrame(animationId);
+            canvas.remove();
+
+            recorder.onstop = () => {
+              recordedBlob = new Blob(audioChunks, { type: "audio/webm" });
+
+              const validateBtn = document.createElement("button");
+              validateBtn.textContent = "✅ Valider";
+              validateBtn.className =
+                "bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 mt-2";
+
+              validateBtn.onclick = () => {
+                recLabel.textContent = "✅ Validé";
+                recBtn.className =
+                  "bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2";
+                recBtn.disabled = true;
+                trashBtn.classList.add("hidden");
+                validateBtn.remove();
+
+                if (zone === 1) {
+                  document.getElementById("etape2").classList.remove("hidden");
+                  document
+                    .getElementById("etape2")
+                    .scrollIntoView({ behavior: "smooth" });
+                } else if (zone === 2) {
+                  nextBtn.disabled = false;
+                  nextBtn.classList.remove("opacity-50");
+                }
+              };
+
+              recBtn.parentElement.appendChild(validateBtn);
+            };
+
+            state = 2;
+          }
+        });
+
+        trashBtn.addEventListener("click", () => {
+          recLabel.textContent = "Enregistrer";
+          recBtn.disabled = false;
+          recBtn.className =
+            "bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700";
+          trashBtn.classList.add("hidden");
+          audioChunks = [];
+          recordedBlob = null;
+          state = 0;
+        });
+      }
+
+      setupRecorder(1);
+      setupRecorder(2);
+
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        alert("➡️ Passage à l'image suivante ou étape suivante !");
+      });
+    </script>
+  </body>
+</html>

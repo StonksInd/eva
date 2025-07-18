@@ -24,7 +24,7 @@
     <div
       class="fixed top-0 left-0 w-full h-full z-0 blur-sm opacity-40"
       style="
-        background-image: url('../old.png'); /* ← Remplace ce chemin */
+        background-image: url(''); /* ← Remplace ce chemin */
         background-size: cover;
         background-position: center;
       "
@@ -42,29 +42,24 @@
         Vous avez terminé la collecte de vos donnée audio avec succès.
       </p>
 
-      <!-- Email -->
-      <div class="space-y-4">
-        <p class="text-md">Souhaitez-vous suivre les résultats par email ?</p>
-        <div
-          class="flex flex-col sm:flex-row items-center gap-3 justify-center"
+      <!-- lien vers un site externe -->
+      <p class="text-md text-[#607D8B]">
+        Écrivez-nous ici si vous voulez des résultats :
+        <a
+          href="mailto:contact@myfamilyup.com"
+          class="text-[#52B4BD] hover:underline"
+          >contact@myfamilyup.com</a
         >
-          <input
-            type="email"
-            id="emailInput"
-            placeholder="Entrez votre email"
-            class="px-4 py-2 rounded-xl border border-gray-300 w-full sm:w-auto"
-          />
-          <button
-            onclick="submitEmail()"
-            class="bg-[#8D79AC] text-white px-4 py-2 rounded-xl hover:bg-[#77619a] transition flex items-center gap-2"
-          >
-            <i data-lucide="mail"></i> valider votre email
-          </button>
-        </div>
-        <p id="emailMessage" class="text-sm text-green-600 font-medium hidden">
-          Votre email a bien été enregistré !
-        </p>
-      </div>
+        <br />
+        ou sur LinkedIn :
+        <a
+          href="https://www.linkedin.com/company/myfamilyup/"
+          class="text-[#52B4BD] hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+          >My Family Up</a
+        >
+      </p>
 
       <!-- Fin -->
       <div class="pt-2">

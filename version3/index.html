@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page d'accueil</title>
+
+    <!-- Typographie Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+
+  <body class="bg-[#EFE7E0] text-[#0E222D] min-h-screen relative">
+    <!-- Image d’arrière-plan -->
+    <div
+      class="absolute inset-0 z-0"
+      style="
+        background-image: url('../granny.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Conteneur principal -->
+    <div
+      class="relative z-10 flex flex-col items-center justify-start h-screen overflow-hidden"
+    >
+      <!-- 🖼️ Logos -->
+      <div class="flex items-center justify-center gap-4 pt-4 mb-2">
+        <img
+          src="../logoCHU.png"
+          alt="Logo 1"
+          class="h-16 max-h-[64px] object-contain"
+        />
+        <img
+          src="../logoMFU.png"
+          alt="Logo 2"
+          class="h-32 max-h-[128px] object-contain"
+        />
+      </div>
+
+      <!-- Encadré blanc avec contenu scrollable -->
+      <section
+        class="flex-1 w-full px-4 pb-6 flex justify-center items-center"
+        style="overflow: visible"
+      >
+        <div
+          class="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 max-w-3xl w-full text-center"
+        >
+          <h1 class="text-4xl sm:text-5xl font-bold mb-6 text-[#0E222D]">
+            Bienvenue sur <span class="text-[#52B4BD]">EVA</span>
+          </h1>
+
+          <p class="text-xl text-[#0E222D] mb-6 leading-relaxed">
+            Le but de EVA est de permettre de récolter des données anonymisées
+            sur les interactions vocales des utilisateurs avec des images
+            sélectionnées. Ces données sont utilisées pour améliorer
+            l’expérience utilisateur et contribuer à la recherche en
+            intelligence artificielle.
+            <br /><br />
+            <strong>Les données sont rendues anonymes</strong><br />
+            Vous devrez enregistrer une réponse audio spontanée pour chaque
+            image. Vérifiez que votre micro et vos enceintes fonctionnent.
+          </p>
+
+          <p class="text-lg text-[#607D8B] mb-8">
+            <strong>Important :</strong> installez-vous dans un endroit calme.
+            Quand vous êtes prêt, cliquez ci-dessous pour commencer.
+          </p>
+
+          <a
+            href="/experience.html"
+            class="inline-flex items-center px-6 py-3 bg-[#52B4BD] text-white text-xl font-semibold rounded-2xl shadow hover:bg-[#0E222D] transition"
+          >
+            <i data-lucide="arrow-right" class="w-6 h-6 mr-2"></i>
+            Aller à la suite
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

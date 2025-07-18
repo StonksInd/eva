@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aide - Test audio/micro</title>
+
+    <!-- Typographie Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="relative bg-[#EFE7E0] text-[#0E222D] overflow-hidden">
+    <!-- Arrière-plan image -->
+    <div
+      class="absolute inset-0 z-0"
+      style="
+        background-image: url('');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Conteneur principal -->
+    <section
+      class="relative z-10 min-h-screen flex flex-col justify-center items-center px-4 py-10"
+    >
+      <div
+        class="bg-white bg-opacity-95 rounded-2xl shadow-lg p-8 max-w-3xl w-full text-center"
+      >
+        <h1 class="text-3xl sm:text-5xl font-bold mb-6">Aide audio</h1>
+
+        <p id="deviceMessage" class="text-xl text-[#0E222D] mb-6"></p>
+
+        <!-- Étape 1 : Micro -->
+        <div id="stepMic">
+          <p class="text-lg mb-4">
+            Nous allons tester votre micro. Cliquez sur le bouton ci-dessous
+            puis acceptez l’autorisation pour continuer.
+          </p>
+          <button
+            id="testMic"
+            class="mt-4 mb-2 px-6 py-3 bg-[#52B4BD] text-white rounded-xl shadow hover:bg-[#0E222D] flex items-center gap-2 mx-auto"
+          >
+            <i data-lucide="mic"></i> Tester le micro
+          </button>
+          <div id="micStatus" class="text-lg text-[#607D8B] mt-4"></div>
+        </div>
+
+        <!-- Étape 2 : Haut-parleurs (invisible au début) -->
+        <div id="stepSound" class="hidden mt-8">
+          <p class="text-lg mb-4">
+            ✅ Super, votre micro fonctionne.<br />
+            <strong>
+              Nous allons maintenant tester vos haut-parleurs. Un son va être
+              diffusé : l’entendez-vous ?
+            </strong>
+          </p>
+          <button
+            id="testSound"
+            class="mb-2 px-6 py-3 bg-[#607D8B] text-white rounded-xl shadow hover:bg-[#0E222D] flex items-center gap-2 mx-auto"
+          >
+            <i data-lucide="volume-2"></i> Tester les haut-parleurs
+          </button>
+          <div id="audioStatus" class="text-lg text-[#607D8B] mt-4"></div>
+        </div>
+
+        <!-- Aide -->
+        <div class="text-lg text-[#0E222D] mt-10">
+          a ne fonctionne pas ? Appelez-nous au
+          <strong>01 23 45 67 89</strong> pour obtenir de l'aide.
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-center gap-4 mt-10">
+          <button
+            onclick="history.back()"
+            class="px-6 py-3 bg-[#607D8B] text-white text-lg font-semibold rounded-2xl shadow hover:bg-[#0E222D] transition flex items-center gap-2"
+          >
+            <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            Revenir en arrière
+          </button>
+
+          <a
+            href="/experience.html"
+            class="px-6 py-3 bg-[#52B4BD] text-white text-lg font-semibold rounded-2xl shadow hover:bg-[#0E222D] transition flex items-center gap-2"
+          >
+            Aller à la suite
+            <i data-lucide="arrow-right" class="w-6 h-6"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      lucide.createIcons();
+
+      // Détection du type d'appareil
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const deviceMessage = document.getElementById("deviceMessage");
+      if (isMobile) {
+        deviceMessage.innerHTML =
+          "📱 Vous êtes sur un téléphone ou une tablette. Un encadré va apparaître pour demander l’accès à votre micro. Veuillez cliquer sur 'Autoriser'.";
+      } else {
+        deviceMessage.innerHTML =
+          "Vous êtes sur un ordinateur. Vérifiez que votre micro est bien branché ainsi que vos hauts parleurs, et acceptez que l'on puisse utiliser votre micro.";
+      }
+
+      // Test du micro
+      const micBtn = document.getElementById("testMic");
+      const micStatus = document.getElementById("micStatus");
+      const stepMic = document.getElementById("stepMic");
+      const stepSound = document.getElementById("stepSound");
+
+      micBtn.addEventListener("click", async () => {
+        micStatus.textContent = "🎤 Test du micro en cours...";
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          micStatus.textContent = "✅ Micro détecté et autorisé !";
+          stream.getTracks().forEach((track) => track.stop());
+
+          // Transition vers le test du son
+          setTimeout(() => {
+            stepMic.classList.add("hidden");
+            stepSound.classList.remove("hidden");
+          }, 1000);
+        } catch (err) {
+          micStatus.textContent = "❌ Micro non autorisé ou non détecté.";
+        }
+      });
+
+      // Test des haut-parleurs
+      const soundBtn = document.getElementById("testSound");
+      const audioStatus = document.getElementById("audioStatus");
+
+      soundBtn.addEventListener("click", () => {
+        const audio = new Audio(
+          "https://www.soundjay.com/button/sounds/button-3.mp3"
+        );
+        audio
+          .play()
+          .then(() => {
+            audioStatus.textContent =
+              "🔊 Son joué avec succès. Vous l’avez entendu ?";
+          })
+          .catch(() => {
+            audioStatus.textContent = "❌ Impossible de jouer le son.";
+          });
+      });
+    </script>
+  </body>
+</html>
